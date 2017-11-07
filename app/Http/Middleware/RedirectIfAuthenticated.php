@@ -18,7 +18,16 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            switch(Auth::user()->role){
+                case 1:
+                    return redirect()->route('admin.home');
+                case 2:
+                    return redirect()->route('teacher.home');
+                case 3:
+                    return redirect()->route('student.home');
+                default:
+                    return response('Authenticate failed', 401);
+            }
         }
 
         return $next($request);
