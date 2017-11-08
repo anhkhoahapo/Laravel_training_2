@@ -2,20 +2,25 @@
 
 namespace App\Http\Controllers\Admin\Auth;
 
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 
 class LoginController extends Controller
 {
-    public function __construct()
+    use AuthenticatesUsers;
+
+    protected $redirectTo = '/admin/home';
+
+    public function guard()
     {
-        $this->middleware('guest:admin');
+        return Auth::guard('admin');
     }
 
     public function showLoginForm()
     {
-        return view('auth.admin-login');
+        return view('admin.auth.login');
     }
 
     public function login(Request $request)
@@ -23,15 +28,17 @@ class LoginController extends Controller
         // Validate the form data
         $this->validate($request, [
             'username' => 'required|string',
-            'password' => 'required|min:3'
+            'password' => 'required|max:30'
         ]);
         // Attempt to log the user in
         if (Auth::guard('admin')
             ->attempt(['username' => $request->username, 'password' => $request->password], $request->remember)) {
             // if successful, then redirect to their intended location
-            return redirect()->intended(route('admin.dashboard'));
+            return redirect()->intended(route('admin.home'));
         }
         // if unsuccessful, then redirect back to the login with the form data
         return redirect()->back()->withInput($request->only('username', 'remember'));
     }
+
+
 }

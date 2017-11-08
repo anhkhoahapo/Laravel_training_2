@@ -82,17 +82,17 @@ return [
         ],
          'admins' => [
              'driver' => 'eloquent',
-             'table' => App\Models\Admin::class,
+             'model' => App\Models\Admin::class,
          ],
 
         'teachers' => [
             'driver' => 'eloquent',
-            'table' => App\Models\Teacher::class,
+            'model' => App\Models\Teacher::class,
         ],
 
         'students' => [
             'driver' => 'eloquent',
-            'table' => App\Models\Student::class,
+            'model' => App\Models\Student::class,
         ],
     ],
 
