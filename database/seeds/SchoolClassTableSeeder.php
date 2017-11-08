@@ -11,7 +11,6 @@ class SchoolClassTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('school_classes')->truncate();
-        factory(\App\Models\SchoolClass::class, 10)->create();
+        factory(\App\Models\SchoolClass::class, 20)->create();
     }
 }

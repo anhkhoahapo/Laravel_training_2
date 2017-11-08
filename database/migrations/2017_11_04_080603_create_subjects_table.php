@@ -15,10 +15,11 @@ class CreateSubjectsTable extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
 
             $table->string('name', 50);
             $table->smallInteger('credit')->unsigned();
+
+            $table->timestamps();
         });
     }
 

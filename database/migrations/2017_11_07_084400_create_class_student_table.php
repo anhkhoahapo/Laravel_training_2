@@ -17,7 +17,16 @@ class CreateClassStudentTable extends Migration
             $table->unsignedInteger('class_id');
             $table->unsignedInteger('student_id');
             $table->unsignedDecimal('score');
+
             $table->timestamps();
+
+            $table->foreign('class_id')
+                ->references('id')->on('school_classes')
+                ->onDelete('cascade');
+
+            $table->foreign('student_id')
+                ->references('id')->on('students')
+                ->onDelete('cascade');
         });
     }
 

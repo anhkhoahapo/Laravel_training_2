@@ -12,7 +12,6 @@ class StudentTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('students')->truncate();
-        factory(Student::class, 50)->create();
+        factory(Student::class, 10)->create();
     }
 }
