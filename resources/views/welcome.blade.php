@@ -62,32 +62,34 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            .m-b-lg {
+                margin-bottom: 80px;
+            }
         </style>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
+            {{--@if (Route::has('login'))--}}
+                {{--<div class="top-right links">--}}
+                    {{--@auth--}}
+                        {{--<a href="{{ url('/home') }}">Home</a>--}}
+                    {{--@else--}}
+                        {{--<a href="{{ route('login') }}">Login</a>--}}
+                        {{--<a href="{{ route('register') }}">Register</a>--}}
+                    {{--@endauth--}}
+                {{--</div>--}}
+            {{--@endif--}}
 
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <h3 class="m-b-lg">Please login to continue</h3>
+                <h1 class="m-b-md">LOGIN AS</h1>
+                <div class="flex-center">
+                    <div class="links">
+                        <a href="">STUDENT</a>
+                        <a href="">TEACHER</a>
+                        <a href="">ADMIN</a>
+                    </div>
                 </div>
             </div>
         </div>
