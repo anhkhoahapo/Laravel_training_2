@@ -2,16 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @property \Carbon\Carbon $created_at
  * @property int $id
  * @property \Carbon\Carbon $updated_at
  */
-class Student extends Model
+class Student extends Authenticatable
 {
-    protected $fillable = ['name', 'birthday', 'address', 'phone', 'email',];
+    protected $guard = 'student';
+
+    protected $fillable = ['mssv', 'password', 'name', 'birthday', 'avatar', 'email',];
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
     public function schoolClasses()
     {
