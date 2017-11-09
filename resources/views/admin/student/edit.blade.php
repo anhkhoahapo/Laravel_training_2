@@ -1,4 +1,4 @@
-@extends('admin.layouts.main')
+@extends('admin.layouts.app')
 
 @section('styles')
   <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker3.min.css') }}">
@@ -7,7 +7,7 @@
 @section('content')
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <h2>Create new student info</h2>
+      <h2>Edit student info</h2>
       @if ($errors->any())
         <div class="alert alert-danger">
           <ul>
@@ -18,23 +18,35 @@
         </div>
       @endif
 
-      <form
-          class="form-horizontal"
-          method="POST"
-          action="{{ route('admin.update', ['id' => $student->id]) }}"
+      <form class="form-horizontal" method="POST" enctype="multipart/form-data"
+          action="{{ route('admin.student.update', ['student' => $student->id]) }}"
       >
         <div class="form-group">
-          <label for="name-txt" class="col-sm-2 control-label">Name</label>
+          <label for="mssvTxt" class="col-sm-2 control-label">MSSV</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="name-txt" placeholder="Your name" name="name"
-                   value="{{ $student->name }}">
+            <input type="text" class="form-control" id="mssvTxt" placeholder="" name="mssv" value="{{ $student->mssv }}">
           </div>
         </div>
+
         <div class="form-group">
-          <label for="dob-txt" class="col-sm-2 control-label">Date of birth</label>
+          <label for="nameTxt" class="col-sm-2 control-label">Name</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="nameTxt" placeholder="Name" name="name" value="{{ $student->name }}">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="emailTxt" class="col-sm-2 control-label">Email</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="emailTxt" placeholder="Email" name="email" value="{{ $student->email }}">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="dobTxt" class="col-sm-2 control-label">Date of birth</label>
           <div class="col-sm-10">
             <div class="input-group">
-              <input type="text" class="form-control datepicker" id="dob-txt" name="birthday" value="{{ $student->birthday }}">
+              <input type="text" class="form-control datepicker" id="dobTxt" name="birthday" value="{{ $student->birthday }}">
               <div class="input-group-addon">
                 <span class="glyphicon glyphicon-th"></span>
               </div>
@@ -43,16 +55,12 @@
         </div>
 
         <div class="form-group">
-          <label for="address-txt" class="col-sm-2 control-label">Address</label>
+          <label for="avatar" class="col-sm-2 control-label">Avatar</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="address-txt" placeholder="Your address" name="address" value="{{ $student->address }}">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="class-txt" class="col-sm-2 control-label">Class</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="class-txt" placeholder="" name="class" value="{{ $student->class }}">
+            <div class="input-group">
+              <img class="img-responsive img-rounded" src="{{ Storage::url($student->avatar) }}" alt="Avatar">
+              <input type="file" class="form-control" id="avatar" name="avatar">
+            </div>
           </div>
         </div>
 

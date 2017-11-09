@@ -1,4 +1,4 @@
-@extends('admin.layouts.main')
+@extends('admin.layouts.app')
 
 @section('styles')
   <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker3.min.css') }}">
@@ -17,36 +17,39 @@
           </ul>
         </div>
       @endif
-      <form method="post" action="{{ route('admin.index') }}" class="form-horizontal">
+      <form class="form-horizontal" method="POST" enctype="multipart/form-data"
+            action="{{ route('admin.student.store') }}"
+      >
+        <div class="form-group">
+          <label for="mssvTxt" class="col-sm-2 control-label">MSSV</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="mssvTxt" placeholder="" name="mssv" value="{{ old('mssv') }}">
+          </div>
+        </div>
+
         <div class="form-group">
           <label for="nameTxt" class="col-sm-2 control-label">Name</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="nameTxt" placeholder="Your name" name="name" value="{{ old('name') }}">
+            <input type="text" class="form-control" id="nameTxt" placeholder="Name" name="name" value="{{ old('name') }}">
           </div>
         </div>
+
         <div class="form-group">
-          <label for="birthdayTxt" class="col-sm-2 control-label">Date of birth</label>
+          <label for="emailTxt" class="col-sm-2 control-label">Email</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="emailTxt" placeholder="Email" name="email" value="{{ old('email') }}">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="dobTxt" class="col-sm-2 control-label">Date of birth</label>
           <div class="col-sm-10">
             <div class="input-group">
-              <input type="text" class="form-control datepicker" id="birthdayTxt" name="birthday" value="{{ old('birthday') }}">
+              <input type="text" class="form-control datepicker" id="dobTxt" name="birthday" value="{{ old('birthday') }}">
               <div class="input-group-addon">
                 <span class="glyphicon glyphicon-th"></span>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="addressTxt" class="col-sm-2 control-label">Address</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="addressTxt" placeholder="Your address" name="address" value="{{ old('address') }}">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="classTxt" class="col-sm-2 control-label">Class</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="classTxt" placeholder="" name="class" value="{{ old('class') }}">
           </div>
         </div>
 

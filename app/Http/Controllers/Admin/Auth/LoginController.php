@@ -30,6 +30,13 @@ class LoginController extends Controller
             'username' => 'required|string',
             'password' => 'required|max:30'
         ]);
+
+        if ($this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return $this->sendLockoutResponse($request);
+        }
+
         // Attempt to log the user in
         if (Auth::guard('admin')
             ->attempt(['username' => $request->username, 'password' => $request->password], $request->remember)) {
@@ -37,8 +44,14 @@ class LoginController extends Controller
             return redirect()->intended(route('admin.home'));
         }
         // if unsuccessful, then redirect back to the login with the form data
-        return redirect()->back()->withInput($request->only('username', 'remember'));
+
+        $this->incrementLoginAttempts($request);
+
+        return $this->sendFailedLoginResponse($request);
     }
 
-
+    public function username()
+    {
+        return 'username';
+    }
 }

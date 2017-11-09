@@ -1,4 +1,4 @@
-@extends('admin.layouts.main')
+@extends('admin.layouts.app')
 
 @section('styles')
   <style>
@@ -31,36 +31,42 @@
         <p>Dummy students</p>
       </div>
       <div class="actions-head col-md-6">
-        <a class="new-btn btn btn-primary" href="{{ route('admin.create') }}">+ New</a>
+        <a class="new-btn btn btn-primary" href="{{ route('admin.student.create') }}">+ New</a>
       </div>
     </div>
     <table class="table table-striped">
       <thead>
       <tr>
-        <th>ID</th>
+        <th>#</th>
+        <th>MSSV</th>
         <th>Name</th>
         <th>Date of birth</th>
-        <th>Address</th>
-        <th>Class</th>
+        <th>Created at</th>
+        <th>Updated at</th>
         <th></th>
       </tr>
       </thead>
       <tbody>
 
+      @php
+        $count = 1;
+      @endphp
+
       @foreach($students as $student)
         <tr>
-          <td>{{ $student->id }}</td>
+          <td>{{ $count++ }}</td>
+          <td>{{ $student->mssv }}</td>
           <td>{{ $student->name }}</td>
           <td>{{ $student->birthday }}</td>
-          <td>{{ $student->address }}</td>
-          <td>{{ $student->class }}</td>
+          <td>{{ $student->created_at }}</td>
+          <td>{{ $student->updated_at }}</td>
           <td>
-            <a class="btn btn-success" href="{{ route('admin.show', ['id' => $student->id]) }}">Show</a>
-            <a class="btn btn-primary" href="{{ route('admin.edit', ['id' => $student->id]) }}">Edit</a>
+            <a class="btn btn-success" href="{{ route('admin.student.show', ['student' => $student->id]) }}">Detail</a>
+            <a class="btn btn-primary" href="{{ route('admin.student.edit', ['student' => $student->id]) }}">Edit</a>
             <form
                 class="form-inline"
                 method="POST"
-                action="{{ route('admin.destroy', ['id' => $student->id]) }}"
+                action="{{ route('admin.student.destroy', ['student' => $student->id]) }}"
             >
 
               <button type="submit" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i></button>

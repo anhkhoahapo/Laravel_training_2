@@ -1,14 +1,26 @@
-@extends('admin.layouts.main')
+@extends('admin.layouts.app')
+
+@section('styles')
+  <style>
+    h1 {
+      margin-bottom: 50px;
+    }
+
+    .btn {
+      margin: 20px 0;
+    }
+  </style>
+@endsection
 
 @section('content')
   <div class="container">
     <div class="row">
-      <div class="col-md-6 col-md-offset-3 bg-info">
-        <h1>{{ $student->name }}'s info</h1>
+      <div class="col-md-8 col-md-offset-2 bg-info">
+        <h1>{{ $student->mssv }}</h1>
+        <p>Name: {{ $student->name }}</p>
+        <p>Email: {{ $student->email }}</p>
         <p>Date of birth: {{ $student->birthday }}</p>
-        <p>Address: {{ $student->address }}</p>
-        <p>Class: {{ $student->class }}</p>
-        <a class="btn btn-primary" href="{{ route('admin', ['id' => $student->id]) }}">Edit</a>
+        <a class="btn btn-primary" href="{{ route('admin.student.edit', ['student' => $student->id]) }}">Edit</a>
       </div>
     </div>
   </div>
