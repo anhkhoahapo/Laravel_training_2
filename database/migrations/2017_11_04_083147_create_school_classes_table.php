@@ -15,11 +15,20 @@ class CreateSchoolClassesTable extends Migration
     {
         Schema::create('school_classes', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
 
             $table->integer('teacher_id')->unsigned();
             $table->integer('subject_id')->unsigned();
             $table->string('semester',10);
+
+            $table->timestamps();
+
+            $table->foreign('teacher_id')
+                ->references('id')->on('teachers')
+                ->onDelete('cascade');
+
+            $table->foreign('subject_id')
+                ->references('id')->on('subjects')
+                ->onDelete('cascade');
         });
     }
 

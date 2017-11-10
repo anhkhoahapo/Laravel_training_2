@@ -15,13 +15,16 @@ class CreateTeachersTable extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
 
+            $table->string('msgv', 20)->unique();
+            $table->string('password');
+            $table->string('email',50);
             $table->string('name', 40);
             $table->date('birthday');
-            $table->string('address', 150);
-            $table->string('phone',20);
-            $table->string('email',50);
+            $table->string('avatar');
+
+            $table->rememberToken();
+            $table->timestamps();
         });
     }
 

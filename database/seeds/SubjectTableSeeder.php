@@ -11,7 +11,6 @@ class SubjectTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('subjects')->truncate();
         factory(\App\Models\Subject::class, 10)->create();
     }
 }
