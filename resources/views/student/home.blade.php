@@ -1,14 +1,27 @@
-@extends('admin.layouts.app')
+@extends('student.layouts.app')
 
 @section('content')
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">
-          <div class="panel-heading">ADMIN Dashboard</div>
+          <div class="panel-heading"><h2>My profile</h2></div>
 
+          @php
+            $user = \Auth::guard('student')->user();
+          @endphp
           <div class="panel-body">
-            You are logged in as <strong>ADMIN</strong>
+            <div class="row">
+              <div class="col-md-8">
+                <p><strong>MSSV: </strong>{{ $user->mssv }}</p>
+                <p><strong>Name: </strong>{{ $user->name }}</p>
+                <p><strong>Date of birth: </strong>{{ $user->birthday }}</p>
+                <p><strong>Email: </strong>{{ $user->email }}</p>
+              </div>
+              <div class="col-md-4">
+                <img class="img-responsive img-rounded" src="{{ Storage::url($user->avatar) }}" alt="Avatar">
+              </div>
+            </div>
           </div>
         </div>
       </div>

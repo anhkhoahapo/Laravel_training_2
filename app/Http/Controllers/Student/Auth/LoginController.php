@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Student\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -25,15 +26,48 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = 'student/home';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function guard()
     {
-        $this->middleware('guest')->except('logout');
+        return \Auth::guard('student');
     }
+
+    public function showLoginForm()
+    {
+        return view('student.auth.login');
+    }
+
+    public function login(Request $request)
+    {
+        // Validate the form data
+        $this->validate($request, [
+            'mssv' => 'required|string|size:8|regex:/[0-9]{8}/u',
+            'password' => 'required|max:30'
+        ]);
+
+        if ($this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return $this->sendLockoutResponse($request);
+        }
+
+        // Attempt to log the user in
+        if (\Auth::guard('student')
+            ->attempt(['mssv' => $request->mssv, 'password' => $request->password], $request->remember)) {
+            // if successful, then redirect to their intended location
+            return redirect()->intended(route('student.home'));
+        }
+        // if unsuccessful, then redirect back to the login with the form data
+
+        $this->incrementLoginAttempts($request);
+
+        return $this->sendFailedLoginResponse($request);
+    }
+
+    public function username()
+    {
+        return 'mssv';
+    }
+
 }
