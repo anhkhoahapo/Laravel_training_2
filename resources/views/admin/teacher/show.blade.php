@@ -21,15 +21,15 @@
         </div>
       @endif
       <div class="col-md-8 col-md-offset-2 bg-info">
-        <h1>{{ $student->mssv }}</h1>
+        <h1>{{ $teacher->msgv }}</h1>
         <div class="col-md-4">
-          <img class="img-responsive img-rounded" src="{{ Storage::url($student->avatar) }}" alt="Avatar">
+          <img class="img-responsive img-rounded" src="{{ Storage::url($teacher->avatar) }}" alt="Avatar">
         </div>
         <div class="col-md-8">
-          <p>Name: {{ $student->name }}</p>
-          <p>Email: {{ $student->email }}</p>
-          <p>Date of birth: {{ $student->birthday }}</p>
-          <a class="btn btn-primary" href="{{ route('admin.student.edit', ['student' => $student->id]) }}">Edit</a>
+          <p>Name: {{ $teacher->name }}</p>
+          <p>Email: {{ $teacher->email }}</p>
+          <p>Date of birth: {{ $teacher->birthday }}</p>
+          <a class="btn btn-primary" href="{{ route('admin.teacher.edit', ['teacher' => $teacher->id]) }}">Edit</a>
         </div>
       </div>
     </div>

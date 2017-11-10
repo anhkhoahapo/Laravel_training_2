@@ -16,7 +16,7 @@ class StudentManagingController extends Controller
      */
     public function index()
     {
-        $students = Student::paginate(10);
+        $students = Student::orderBy('name')->paginate(10);
 
         return view('admin.student.index', ['students' => $students]);
     }
@@ -40,10 +40,12 @@ class StudentManagingController extends Controller
     public function store(StoreStudent $request)
     {
         if(Student::where('mssv', '=', request()->mssv)->exists()){
-            return redirect()->back()->withErrors(['Student existed']);
+            return redirect()->back()->withErrors(['Student mssv existed']);
         }
 
-        Student::create([
+        $student = new Student();
+
+        $student->fill([
             'mssv' => request()->mssv,
             'password' => \Hash::make('123'),
             'name' => request()->name,
@@ -51,8 +53,18 @@ class StudentManagingController extends Controller
             'email' => request()->email
         ]);
 
+        if(isset(request()->avatar)) {
+            $imagePath = $request->file('avatar')->storeAs(
+                'public/students/avatars',
+                $student->mssv
+            );
+            $student->fill(['avatar' => $imagePath]);
+        }
+
+        $student->save();
+
         return redirect()->route('admin.student.index')
-            ->with('success','Student profile updated successfully ');
+            ->with('success','Student profile created successfully ');
     }
 
     /**
@@ -97,7 +109,7 @@ class StudentManagingController extends Controller
         if(isset($request->avatar)) {
             $imagePath = $request->file('avatar')->storeAs(
                 'public/students/avatars',
-                $student->id
+                $student->mssv
             );
         }
 
@@ -109,7 +121,7 @@ class StudentManagingController extends Controller
             'avatar' => $imagePath,
         ]);
 
-        return redirect()->route('admin.student.index')
+        return redirect()->route('admin.student.show', ['student' => $id])
             ->with('success','Student profile updated successfully ');
     }
 
@@ -125,5 +137,11 @@ class StudentManagingController extends Controller
 
         return redirect()->route('admin.student.index')
             ->with('success','Student info deleted successfully');
+    }
+
+    public function search(){
+        $students = Student::where('name', 'like', '%'.request()->name.'%')->orderBy('name')->paginate(10);
+
+        return view('admin.student.index', ['students' => $students]);
     }
 }

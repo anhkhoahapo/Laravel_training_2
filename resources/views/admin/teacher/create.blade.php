@@ -7,7 +7,7 @@
 @section('content')
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <h2>Create new student info</h2>
+      <h2>Create new teacher info</h2>
       @if ($errors->any())
         <div class="alert alert-danger">
           <ul>
@@ -18,12 +18,12 @@
         </div>
       @endif
       <form class="form-horizontal" method="POST" enctype="multipart/form-data"
-            action="{{ route('admin.student.store') }}"
+            action="{{ route('admin.teacher.store') }}"
       >
         <div class="form-group">
-          <label for="mssvTxt" class="col-sm-2 control-label">MSSV</label>
+          <label for="msgvTxt" class="col-sm-2 control-label">MSGV</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="mssvTxt" placeholder="" name="mssv" value="{{ old('mssv') }}">
+            <input type="text" class="form-control" id="msgvTxt" placeholder="" name="msgv" value="{{ old('msgv') }}">
           </div>
         </div>
 

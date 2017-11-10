@@ -34,10 +34,15 @@
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
+                    @if(Auth::guard('admin')->check())
+                        <ul class="nav navbar-nav navbar-left">
+                            <li><a href="{{ route('admin.home') }}">Home</a></li>
+                            <li><a href="{{ route('admin.student.index') }}">Student Manager</a></li>
+                            <li><a href="{{ route('admin.teacher.index') }}">Teacher Manager</a></li>
+                            <li><a href="{{ route('admin.subject.index') }}">Subject Manager</a></li>
+                        </ul>
 
-                    <a class="navbar-brand" href="{{ route('admin.student.index') }}">
-                        Student Manager
-                    </a>
+                    @endif
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -49,6 +54,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
+
                         @if(!Auth::guard('admin')->check())
                             <li><a href="{{ route('admin.get-login') }}">Login</a></li>
                         @else
@@ -82,5 +88,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
+
+    @yield('scripts')
 </body>
 </html>
