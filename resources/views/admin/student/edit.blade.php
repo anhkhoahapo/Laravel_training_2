@@ -22,9 +22,9 @@
           action="{{ route('admin.student.update', ['student' => $student->id]) }}"
       >
         <div class="form-group">
-          <label for="mssvTxt" class="col-sm-2 control-label">MSSV</label>
+          <label for="studentIdTxt" class="col-sm-2 control-label">Student ID</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="mssvTxt" placeholder="" name="mssv" value="{{ $student->mssv }}">
+            <input type="text" class="form-control" id="studentIdTxt" placeholder="" name="student_id" value="{{ $student->student_id }}">
           </div>
         </div>
 

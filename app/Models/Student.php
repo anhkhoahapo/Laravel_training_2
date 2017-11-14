@@ -13,7 +13,7 @@ class Student extends Authenticatable
 {
     protected $guard = 'student';
 
-    protected $fillable = ['mssv', 'password', 'name', 'birthday', 'avatar', 'email',];
+    protected $fillable = ['student_id', 'password', 'name', 'birthday', 'avatar', 'email',];
 
     protected $hidden = [
         'password', 'remember_token',
@@ -21,7 +21,7 @@ class Student extends Authenticatable
 
     public function schoolClasses()
     {
-        $this->belongsToMany(SchoolClass::class,'class_student', 'class_id', 'student_id')
+        return $this->belongsToMany(SchoolClass::class,'class_student', 'class_id', 'student_id')
             ->withPivot('score')->withTimestamps();
     }
 }

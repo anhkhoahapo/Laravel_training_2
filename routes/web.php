@@ -34,3 +34,18 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function (){
         Route::get('subject.search', 'SubjectManagingController@search')->name('admin.subject.search');
     });
 });
+
+Route::group(['namespace' => 'Student', 'prefix' => 'student'], function (){
+    Route::group(['middleware' => 'guest:student'], function (){
+        Route::get('login', 'Auth\LoginController@showLoginForm')->name('student.get-login');
+        Route::post('login', 'Auth\LoginController@login')->name('student.post-login');
+    });
+
+    Route::group(['middleware' => 'auth_student'], function (){
+        Route::post('logout', 'Auth\LoginController@logout')->name('student.logout');
+        Route::get('home', 'HomeController@index')->name('student.home');
+
+        Route::get('classes', 'ClassRegisterController@getClassList')->name(('student.classes'));
+        Route::get('search', 'ClassRegisterController@searchByClassName')->name(('student.classes.search'));
+    });
+});

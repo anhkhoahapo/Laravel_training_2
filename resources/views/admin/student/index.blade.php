@@ -62,7 +62,7 @@
       @foreach($students as $student)
         <tr>
           <td>{{ $count++ }}</td>
-          <td>{{ $student->mssv }}</td>
+          <td>{{ $student->student_id }}</td>
           <td>{{ $student->name }}</td>
           <td>{{ $student->birthday }}</td>
           <td>{{ $student->created_at }}</td>

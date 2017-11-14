@@ -10,16 +10,16 @@
             <form class="form-horizontal" role="form" method="POST" action="{{ route('student.post-login') }}">
               {{ csrf_field() }}
 
-              <div class="form-group{{ $errors->has('mssv') ? ' has-error' : '' }}">
-                <label for="mssv" class="col-md-4 control-label">MSSV</label>
+              <div class="form-group{{ $errors->has('student_id') ? ' has-error' : '' }}">
+                <label for="student_id" class="col-md-4 control-label">MSSV</label>
 
                 <div class="col-md-6">
-                  <input id="mssv" type="text" class="form-control" name="mssv" value="{{ old('mssv') }}"
+                  <input id="student_id" type="text" class="form-control" name="student_id" value="{{ old('student_id') }}"
                          required autofocus>
 
-                  @if ($errors->has('mssv'))
+                  @if ($errors->has('student_id'))
                     <span class="help-block">
-                      <strong>{{ $errors->first('mssv') }}</strong>
+                      <strong>{{ $errors->first('student_id') }}</strong>
                     </span>
                   @endif
                 </div>
@@ -55,9 +55,9 @@
                     Login
                   </button>
 
-                  <a class="btn btn-link" href="{{ route('password.request') }}">
-                    Forgot Your Password?
-                  </a>
+                  {{--<a class="btn btn-link" href="{{ route('student.password.request') }}">--}}
+                    {{--Forgot Your Password?--}}
+                  {{--</a>--}}
                 </div>
               </div>
             </form>
