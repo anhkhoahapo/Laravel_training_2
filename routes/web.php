@@ -45,10 +45,23 @@ Route::group(['namespace' => 'Student', 'prefix' => 'student'], function (){
         Route::post('logout', 'Auth\LoginController@logout')->name('student.logout');
         Route::get('home', 'HomeController@index')->name('student.home');
         Route::get('registered-classes', 'HomeController@registeredClasses')->name(('student.registered-classes'));
-
         Route::get('classes', 'ClassRegisterController@getClassList')->name(('student.classes'));
         Route::get('search', 'ClassRegisterController@searchByClassName')->name(('student.classes.search'));
         Route::post('register', 'ClassRegisterController@register')->name('student.class-register');
         Route::delete('unregister', 'ClassRegisterController@unregister')->name('student.class-unregister');
     });
 });
+
+Route::group(['namespace' => 'Teacher', 'prefix' => 'teacher'], function (){
+    Route::group(['middleware' => 'guest:teacher'], function (){
+        Route::get('login', 'Auth\LoginController@showLoginForm')->name('teacher.get-login');
+        Route::post('login', 'Auth\LoginController@login')->name('teacher.post-login');
+    });
+
+    Route::group(['middleware' => 'auth_teacher'], function (){
+        Route::post('logout', 'Auth\LoginController@logout')->name('teacher.logout');
+        Route::get('home', 'HomeController@index')->name('teacher.home');
+        Route::post('register', 'ClassRegisterController@register')->name('teacher.class-register');
+    });
+});
+
