@@ -34,14 +34,11 @@
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
-                    @if(Auth::guard('admin')->check())
+                    @if(Auth::guard('student')->check())
                         <ul class="nav navbar-nav navbar-left">
-                            <li><a href="{{ route('admin.home') }}">Home</a></li>
-                            <li><a href="{{ route('admin.student.index') }}">Student Manager</a></li>
-                            <li><a href="{{ route('admin.teacher.index') }}">Teacher Manager</a></li>
-                            <li><a href="{{ route('admin.subject.index') }}">Subject Manager</a></li>
+                            <li><a href="{{ route('student.home') }}">Home</a></li>
+                            <li><a href="{{ route('student.classes') }}">List classes</a></li>
                         </ul>
-
                     @endif
                 </div>
 
@@ -55,23 +52,23 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
 
-                        @if(!Auth::guard('admin')->check())
-                            <li><a href="{{ route('admin.get-login') }}">Login</a></li>
+                        @if(!Auth::guard('student')->check())
+                            <li><a href="{{ route('student.get-login') }}">Login</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    {{ Auth::guard('admin')->user()->name }} <span class="caret"></span>
+                                    {{ Auth::guard('student')->user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="{{ route('admin.logout') }}"
+                                        <a href="{{ route('student.logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                             Logout
                                         </a>
 
-                                        <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                                        <form id="logout-form" action="{{ route('student.logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
                                     </li>

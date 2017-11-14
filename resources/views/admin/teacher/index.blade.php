@@ -30,13 +30,13 @@
         </div>
       @endif
       <div class="col-md-6">
-        <h2>Student list</h2>
-        <p>Dummy students</p>
+        <h2>Teacher list</h2>
+        <p>Dummy teachers</p>
       </div>
       <div class="actions-head col-md-6">
-        <a class="new-btn btn btn-primary" href="{{ route('admin.student.create') }}">+ New</a>
-        <form class="search-form form form-inline" method="GET" action="{{ route('admin.student.search') }}">
-          <input class="form-control" type="text" placeholder="Student name" name="name">
+        <a class="new-btn btn btn-primary" href="{{ route('admin.teacher.create') }}">+ New</a>
+        <form class="search-form form form-inline" method="GET" action="{{ route('admin.teacher.search') }}">
+          <input class="form-control" type="text" placeholder="Teacher name" name="name">
           <button class="btn btn-success" type="submit">Search</button>
         </form>
       </div>
@@ -45,7 +45,7 @@
       <thead>
       <tr>
         <th>#</th>
-        <th>MSSV</th>
+        <th>MSGV</th>
         <th>Name</th>
         <th>Date of birth</th>
         <th>Created at</th>
@@ -59,21 +59,21 @@
         $count = 1;
       @endphp
 
-      @foreach($students as $student)
+      @foreach($teachers as $teacher)
         <tr>
           <td>{{ $count++ }}</td>
-          <td>{{ $student->student_id }}</td>
-          <td>{{ $student->name }}</td>
-          <td>{{ $student->birthday }}</td>
-          <td>{{ $student->created_at }}</td>
-          <td>{{ $student->updated_at }}</td>
+          <td>{{ $teacher->teacher_id }}</td>
+          <td>{{ $teacher->name }}</td>
+          <td>{{ $teacher->birthday }}</td>
+          <td>{{ $teacher->created_at }}</td>
+          <td>{{ $teacher->updated_at }}</td>
           <td>
-            <a class="btn btn-success" href="{{ route('admin.student.show', ['student' => $student->id]) }}">Detail</a>
-            <a class="btn btn-primary" href="{{ route('admin.student.edit', ['student' => $student->id]) }}">Edit</a>
+            <a class="btn btn-success" href="{{ route('admin.teacher.show', ['teacher' => $teacher->id]) }}">Detail</a>
+            <a class="btn btn-primary" href="{{ route('admin.teacher.edit', ['teacher' => $teacher->id]) }}">Edit</a>
             <form
                 class="form-inline"
                 method="POST"
-                action="{{ route('admin.student.destroy', ['student' => $student->id]) }}"
+                action="{{ route('admin.teacher.destroy', ['teacher' => $teacher->id]) }}"
             >
 
               <button type="submit" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i></button>
@@ -88,7 +88,7 @@
       </tbody>
     </table>
     <div class="pagination col-md-12">
-      {{ $students->links() }}
+      {{ $teachers->links() }}
     </div>
   </div>
 

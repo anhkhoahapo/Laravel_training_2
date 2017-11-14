@@ -13,13 +13,13 @@ class Teacher extends Authenticatable
 {
     protected $guard = 'teacher';
 
-    protected $fillable = ['msgv', 'password', 'name', 'birthday', 'avatar', 'email',];
+    protected $fillable = ['teacher_id', 'password', 'name', 'birthday', 'avatar', 'email',];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
 
     public function schoolClasses(){
-        $this->hasMany(SchoolClass::class);
+        return $this->hasMany(SchoolClass::class);
     }
 }

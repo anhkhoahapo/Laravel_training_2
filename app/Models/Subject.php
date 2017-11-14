@@ -14,6 +14,6 @@ class Subject extends Model
     protected $fillable = ['name', 'credit',];
 
     public function schoolClasses(){
-        $this->hasMany(SchoolClass::class);
+        return $this->hasMany(SchoolClass::class);
     }
 }
