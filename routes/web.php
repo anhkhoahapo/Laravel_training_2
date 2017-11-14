@@ -47,7 +47,7 @@ Route::group(['namespace' => 'Student', 'prefix' => 'student'], function (){
         Route::get('registered-classes', 'HomeController@registeredClasses')->name(('student.registered-classes'));
 
         Route::get('classes', 'ClassRegisterController@getClassList')->name(('student.classes'));
-        Route::get('search', 'ClassRegisterController@searchByClassName')->name(('student.classes.search'));
+        Route::get('search', 'ClassRegisterController@search')->name(('student.classes.search'));
         Route::post('register', 'ClassRegisterController@register')->name('student.class-register');
         Route::delete('unregister', 'ClassRegisterController@unregister')->name('student.class-unregister');
     });

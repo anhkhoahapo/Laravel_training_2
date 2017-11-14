@@ -3,22 +3,26 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Requests\ClassRegisterRequest;
-use App\Models\SchoolClass;
+use App\Models\Subject;
+use Carbon\Carbon;
 use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ClassRegisterController extends Controller
 {
     public function getClassList(){
-        $semester = request()->semester;
-        $classes = SchoolClass::where('semester', 'like', $semester.'%')->paginate(10);
-        return view('student.list-classes', ['classes' => $classes]);
+        $subjects = Subject::with('schoolClasses')->orderBy('name')->get()->all();
+
+        return view('student.list-classes', ['subjects' => $subjects]);
     }
 
-    public function searchBySubjectName(Request $request){
-        $classes = SchoolClass::where('name', 'like', '%'.request()->name.'%')->orderBy('name')->paginate(10);
-        return view('student.list-classes', ['classes' => $classes]);
+    public function search(){
+        $subjects = Subject::with(['schoolClasses' => function ($query) {
+            $query->where('semester', 'like', request()->semester.'%');
+        }])->where('name', 'like', '%'.request()->name.'%')
+            ->orderBy('name')->get()->all();
+
+        return view('student.list-classes', ['subjects' => $subjects]);
     }
 
     public function register(ClassRegisterRequest $request){
@@ -28,7 +32,9 @@ class ClassRegisterController extends Controller
         }
         catch (QueryException $e){
             if($e->errorInfo[0] === '23000')
-                return redirect()->route('student.classes')->with('error', 'You have already registered to this class');
+                return redirect()->route('student.classes')
+                    ->setStatusCode(302)
+                    ->with('error', 'You have already registered to this class');
         }
 
         return redirect()->route('student.classes')->with('success', 'Register successfully');
