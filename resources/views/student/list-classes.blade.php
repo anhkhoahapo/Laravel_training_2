@@ -28,6 +28,10 @@
         <div class="alert alert-success">
           <p>{{ Session::get('success') }}</p>
         </div>
+      @elseif (Session::has('error'))
+         <div class="alert alert-danger">
+           <p>{{ Session::get('error') }}</p>
+         </div>
       @endif
       <div class="col-md-6">
         <h2>Class list</h2>
@@ -39,11 +43,16 @@
         </form>
       </div>
     </div>
+    <div class="row">
+      <form class="col-md-2" method="GET">
+        <input type="text" name="semester" placeholder="Semester" class="form-control">
+      </form>
+    </div>
     <table class="table table-striped">
       <thead>
       <tr>
         <th>#</th>
-        <th>ID</th>
+        <th>Class ID</th>
         <th>Subject</th>
         <th>Semester</th>
         <th></th>
@@ -53,6 +62,7 @@
 
       @php
         $count = 1;
+        $registedClasses = \Auth::guard('student')->user()->schoolClasses()->get()->pluck('id');
       @endphp
 
       @foreach($classes as $class)
@@ -62,19 +72,30 @@
           <td>{{ $class->subject->name }}</td>
           <td>{{ $class->semester }}</td>
           <td>
-            {{--<a class="btn btn-success" href="{{ route('admin.student.show', ['student' => $student->id]) }}">Detail</a>--}}
-            {{--<a class="btn btn-primary" href="{{ route('admin.student.edit', ['student' => $student->id]) }}">Edit</a>--}}
-            {{--<form--}}
-                {{--class="form-inline"--}}
-                {{--method="POST"--}}
-                {{--action="{{ route('admin.student.destroy', ['student' => $student->id]) }}"--}}
-            {{-->--}}
+            @if(!$registedClasses->contains($class->id))
+              <form
+                  class="form-inline"
+                  method="POST"
+                  action="{{ route('student.class-register') }}"
+              >
+                <input type="hidden" name="class_id" value="{{ $class->id }}">
+                <button type="submit" class="btn btn-primary">Register</button>
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              </form>
 
-              {{--<button type="submit" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i></button>--}}
+            @else
+              <form
+                  class="form-inline"
+                  method="POST"
+                  action="{{ route('student.class-unregister') }}"
+              >
+                <input type="hidden" name="class_id" value="{{ $class->id }}">
+                <button type="submit" class="btn btn-danger">Unregister</button>
 
-              {{--<input type="hidden" name="_method" value="DELETE">--}}
-              {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
-            {{--</form>--}}
+                {{ method_field('DELETE') }}
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              </form>
+            @endif
           </td>
         </tr>
       @endforeach

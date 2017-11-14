@@ -44,8 +44,11 @@ Route::group(['namespace' => 'Student', 'prefix' => 'student'], function (){
     Route::group(['middleware' => 'auth_student'], function (){
         Route::post('logout', 'Auth\LoginController@logout')->name('student.logout');
         Route::get('home', 'HomeController@index')->name('student.home');
+        Route::get('registered-classes', 'HomeController@registeredClasses')->name(('student.registered-classes'));
 
         Route::get('classes', 'ClassRegisterController@getClassList')->name(('student.classes'));
         Route::get('search', 'ClassRegisterController@searchByClassName')->name(('student.classes.search'));
+        Route::post('register', 'ClassRegisterController@register')->name('student.class-register');
+        Route::delete('unregister', 'ClassRegisterController@unregister')->name('student.class-unregister');
     });
 });
