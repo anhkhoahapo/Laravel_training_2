@@ -32,6 +32,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function (){
 
         Route::resource('subject', 'SubjectManagingController', ['as' => 'admin']);
         Route::get('subject.search', 'SubjectManagingController@search')->name('admin.subject.search');
+
+        Route::resource('class', 'ClassManagingController', ['as' => 'admin']);
+        Route::get('class.search', 'ClassManagingController@search')->name('admin.class.search');
     });
 });
 
