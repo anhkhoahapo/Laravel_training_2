@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreStudent;
+use App\Http\Requests\StudentRequest;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -34,19 +34,15 @@ class StudentManagingController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreStudent|Request $request
+     * @param StudentRequest|Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreStudent $request)
+    public function store(StudentRequest $request)
     {
-        if(Student::where('mssv', '=', request()->mssv)->exists()){
-            return redirect()->back()->withErrors(['Student mssv existed']);
-        }
-
         $student = new Student();
 
         $student->fill([
-            'mssv' => request()->mssv,
+            'student_id' => request()->student_id,
             'password' => \Hash::make('123'),
             'name' => request()->name,
             'birthday' => request()->birthday,
@@ -56,7 +52,7 @@ class StudentManagingController extends Controller
         if(isset(request()->avatar)) {
             $imagePath = $request->file('avatar')->storeAs(
                 'public/students/avatars',
-                $student->mssv
+                $student->student_id
             );
             $student->fill(['avatar' => $imagePath]);
         }
@@ -96,11 +92,11 @@ class StudentManagingController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param StoreStudent|Request $request
+     * @param StudentRequest|Request $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreStudent $request, $id)
+    public function update(StudentRequest $request, $id)
     {
         $student = Student::findOrFail($id);
 
@@ -109,12 +105,12 @@ class StudentManagingController extends Controller
         if(isset($request->avatar)) {
             $imagePath = $request->file('avatar')->storeAs(
                 'public/students/avatars',
-                $student->mssv
+                $student->student_id
             );
         }
 
         $student->update([
-            'mssv' => request()->mssv,
+            'student_id' => request()->student_id,
             'name' => request()->name,
             'birthday' => request()->birthday,
             'email' => request()->email,

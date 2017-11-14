@@ -21,9 +21,9 @@
             action="{{ route('admin.teacher.store') }}"
       >
         <div class="form-group">
-          <label for="msgvTxt" class="col-sm-2 control-label">MSGV</label>
+          <label for="teacherIdTxt" class="col-sm-2 control-label">Teacher ID</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="msgvTxt" placeholder="" name="msgv" value="{{ old('msgv') }}">
+            <input type="text" class="form-control" id="teacherIdTxt" placeholder="" name="teacher_id" value="{{ old('teacher_id') }}">
           </div>
         </div>
 

@@ -15,17 +15,17 @@ class SchoolClass extends Model
 
     public function teacher()
     {
-        $this->belongsTo(Teacher::class);
+        return $this->belongsTo(Teacher::class);
     }
 
     public function subject()
     {
-        $this->belongsTo(Subject::class);
+        return $this->belongsTo(Subject::class);
     }
 
     public function students()
     {
-        $this->belongsToMany(Student::class, 'class_student', 'student_id', 'class_id')
+        return $this->belongsToMany(Student::class, 'class_student', 'student_id', 'class_id')
             ->withPivot('score')->withTimestamps();
     }
 }

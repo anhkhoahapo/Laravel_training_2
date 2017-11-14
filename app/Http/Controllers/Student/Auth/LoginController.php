@@ -42,7 +42,7 @@ class LoginController extends Controller
     {
         // Validate the form data
         $this->validate($request, [
-            'mssv' => 'required|string|size:8|regex:/[0-9]{8}/u',
+            'student_id' => 'required|string|size:8|regex:/[0-9]{8}/u',
             'password' => 'required|max:30'
         ]);
 
@@ -54,7 +54,7 @@ class LoginController extends Controller
 
         // Attempt to log the user in
         if (\Auth::guard('student')
-            ->attempt(['mssv' => $request->mssv, 'password' => $request->password], $request->remember)) {
+            ->attempt(['student_id' => $request->student_id, 'password' => $request->password], $request->remember)) {
             // if successful, then redirect to their intended location
             return redirect()->intended(route('student.home'));
         }
@@ -67,7 +67,7 @@ class LoginController extends Controller
 
     public function username()
     {
-        return 'mssv';
+        return 'student_id';
     }
 
 }

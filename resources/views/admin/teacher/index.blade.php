@@ -62,7 +62,7 @@
       @foreach($teachers as $teacher)
         <tr>
           <td>{{ $count++ }}</td>
-          <td>{{ $teacher->msgv }}</td>
+          <td>{{ $teacher->teacher_id }}</td>
           <td>{{ $teacher->name }}</td>
           <td>{{ $teacher->birthday }}</td>
           <td>{{ $teacher->created_at }}</td>

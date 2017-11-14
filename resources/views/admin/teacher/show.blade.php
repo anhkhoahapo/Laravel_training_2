@@ -21,7 +21,7 @@
         </div>
       @endif
       <div class="col-md-8 col-md-offset-2 bg-info">
-        <h1>{{ $teacher->msgv }}</h1>
+        <h1>{{ $teacher->teacher_id }}</h1>
         <div class="col-md-4">
           <img class="img-responsive img-rounded" src="{{ Storage::url($teacher->avatar) }}" alt="Avatar">
         </div>

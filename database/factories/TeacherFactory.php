@@ -5,7 +5,7 @@ use Faker\Generator as Faker;
 /* @var Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(\App\Models\Teacher::class, function (Faker $faker) {
     return [
-            'msgv' => (string)rand(10000000, 20000000),
+            'teacher_id' => (string)rand(10000000, 20000000),
             'password' => Hash::make('123'),
             'name' => $faker->name,
             'email' => $faker->email,
