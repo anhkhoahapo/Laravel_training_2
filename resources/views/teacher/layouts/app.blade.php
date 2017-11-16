@@ -41,7 +41,8 @@
                     @if(Auth::guard('teacher')->check())
                         <ul class="nav navbar-nav navbar-left">
                             <li><a href="{{ route('teacher.home') }}">Home</a></li>
-                            <li><a href="{{ route('teacher.home') }}">Home</a></li>
+                            <li><a href="{{ route('teacher.classes') }}">Class register</a></li>
+                            <li><a href="{{ route('teacher.registered-classes') }}">Teaching classes</a></li>
                         </ul>
                     @endif
 

@@ -64,7 +64,14 @@ Route::group(['namespace' => 'Teacher', 'prefix' => 'teacher'], function (){
     Route::group(['middleware' => 'auth_teacher'], function (){
         Route::post('logout', 'Auth\LoginController@logout')->name('teacher.logout');
         Route::get('home', 'HomeController@index')->name('teacher.home');
+        Route::get('registered-classes', 'HomeController@registeredClasses')->name(('teacher.registered-classes'));
+        Route::get('classes', 'ClassRegisterController@getClassList')->name(('teacher.classes'));
+        Route::get('search', 'ClassRegisterController@search')->name(('teacher.classes.search'));
         Route::post('register', 'ClassRegisterController@register')->name('teacher.class-register');
+        Route::delete('unregister', 'ClassRegisterController@unregister')->name('teacher.class-unregister');
+
+        Route::get('class/{class}/list-student', 'ClassStudentsController@getListStudent')->name('teacher.class-students');
+        Route::post('class/{class}/student-score', 'ClassStudentsController@updateStudentScore')->name('teacher.student-score');
     });
 });
 

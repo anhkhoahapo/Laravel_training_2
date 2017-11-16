@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Requests\ClassRegisterRequest;
 use App\Models\Subject;
-use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use App\Http\Controllers\Controller;
 
