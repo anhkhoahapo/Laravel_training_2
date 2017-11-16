@@ -14,19 +14,47 @@
         </div>
       @endif
       <form class="form-horizontal" method="POST" enctype="multipart/form-data"
-            action="{{ route('admin.subject.update', ['subject' => $subject->id]) }}"
+            action="{{ route('admin.class.update', ['class' => $class->id]) }}"
       >
         <div class="form-group">
-          <label for="nameTxt" class="col-sm-2 control-label">Name</label>
+          <label for="subjectSlc" class="col-sm-2 control-label">Subject</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="nameTxt" placeholder="Name" name="name" value="{{ $subject->name }}">
+            <select class="form-control" id="subjectSlc" name="subject_id">
+              @foreach($subjects as $subject)
+                <option value="{{ $subject->id }}"
+                        @if($subject->id === $class->subject_id)
+                          selected
+                        @endif
+                >
+                  {{ $subject->name.' - '.$subject->id }}
+                </option>
+              @endforeach
+            </select>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="creditTxt" class="col-sm-2 control-label">Credits</label>
+          <label for="teacherSlc" class="col-sm-2 control-label">Teacher</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="creditTxt" placeholder="" name="credit" value="{{ $subject->credit }}">
+            <select class="form-control" id="teacherSlc" name="teacher_id">
+              <option value="{{ Null }}" selected>Not choose yet</option>
+              @foreach($teachers as $teacher)
+                <option value="{{ $teacher->id }}"
+                        @if($teacher->id === $class->teacher_id)
+                            selected
+                        @endif
+                >
+                  {{ $teacher->name.' - '.$teacher->teacher_id }}
+                </option>
+              @endforeach
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="semesterTxt" class="col-sm-2 control-label">Semester</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="semesterTxt" placeholder="Semester" name="semester" value="{{ $class->semester }}">
           </div>
         </div>
 
