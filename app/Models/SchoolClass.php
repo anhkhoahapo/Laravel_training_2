@@ -25,7 +25,7 @@ class SchoolClass extends Model
 
     public function students()
     {
-        return $this->belongsToMany(Student::class, 'class_student', 'student_id', 'class_id')
+        return $this->belongsToMany(Student::class, 'class_student', 'class_id', 'student_id')
             ->withPivot('score')->withTimestamps();
     }
 }

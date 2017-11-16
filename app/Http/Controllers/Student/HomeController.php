@@ -15,4 +15,10 @@ class HomeController extends Controller
     {
         return view('student.home');
     }
+
+    public function registeredClasses(){
+        $student = \Auth::guard('student')->user();
+        $classes = $student->schoolClasses()->paginate(10);
+        return view('student.registered-classes', ['classes' => $classes]);
+    }
 }

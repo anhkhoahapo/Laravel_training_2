@@ -28,61 +28,86 @@
         <div class="alert alert-success">
           <p>{{ Session::get('success') }}</p>
         </div>
+      @elseif (Session::has('error'))
+         <div class="alert alert-danger">
+           <p>{{ Session::get('error') }}</p>
+         </div>
       @endif
       <div class="col-md-6">
         <h2>Class list</h2>
       </div>
       <div class="actions-head col-md-6">
         <form class="search-form form form-inline" method="GET" action="{{ route('student.classes.search') }}">
+          <input class="form-control" type="text" placeholder="Semester" name="semester" >
           <input class="form-control" type="text" placeholder="Subject name" name="name">
           <button class="btn btn-success" type="submit">Search</button>
         </form>
       </div>
     </div>
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>#</th>
-        <th>ID</th>
-        <th>Subject</th>
-        <th>Semester</th>
-        <th></th>
-      </tr>
-      </thead>
-      <tbody>
+    @php
+      $count = 1;
+      $registedClasses = \Auth::guard('student')->user()->schoolClasses()->get()->pluck('id');
+    @endphp
 
-      @php
-        $count = 1;
-      @endphp
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      @foreach($subjects as $subject)
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="{{ 'heading'.$subject->id }}">
+            <h4 class="panel-title text-center">
+              <a role="button" data-toggle="collapse" data-parent="#accordion"
+                 href="{{ '#'.$subject->id }}"
+                 aria-expanded="true" aria-controls="{{ $subject->id }}"
+              >
+                <strong>{{ $subject->name }}</strong>
+              </a>
+            </h4>
+          </div>
+          <div id="{{ $subject->id }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="{{ 'heading'.$subject->id }}">
+            <div class="panel-body">
+              @foreach($subject->schoolClasses as $class)
+                <div class="row">
+                  <div class="col-md-1">
+                    <p>ID: <span>{{ $class->id }}</span></p>
+                  </div>
+                  <div class="col-md-4">
+                    <p>{{ $class->subject->name }}</p>
+                  </div>
+                  <div class="col-md-4">
+                    <p>Semester: {{ $class->semester }}</p>
+                  </div>
+                  <div class="col-md-3  text-center">
+                    @if(!$registedClasses->contains($class->id))
+                      <form
+                          class="form-inline"
+                          method="POST"
+                          action="{{ route('student.class-register') }}"
+                      >
+                        <input type="hidden" name="class_id" value="{{ $class->id }}">
+                        <button type="submit" class="btn btn-primary">Register</button>
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                      </form>
 
-      @foreach($classes as $class)
-        <tr>
-          <td>{{ $count++ }}</td>
-          <td>{{ $class->id }}</td>
-          <td>{{ $class->subject->name }}</td>
-          <td>{{ $class->semester }}</td>
-          <td>
-            {{--<a class="btn btn-success" href="{{ route('admin.student.show', ['student' => $student->id]) }}">Detail</a>--}}
-            {{--<a class="btn btn-primary" href="{{ route('admin.student.edit', ['student' => $student->id]) }}">Edit</a>--}}
-            {{--<form--}}
-                {{--class="form-inline"--}}
-                {{--method="POST"--}}
-                {{--action="{{ route('admin.student.destroy', ['student' => $student->id]) }}"--}}
-            {{-->--}}
+                    @else
+                      <form
+                          class="form-inline"
+                          method="POST"
+                          action="{{ route('student.class-unregister') }}"
+                      >
+                        <input type="hidden" name="class_id" value="{{ $class->id }}">
+                        <button type="submit" class="btn btn-danger">Unregister</button>
 
-              {{--<button type="submit" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i></button>--}}
-
-              {{--<input type="hidden" name="_method" value="DELETE">--}}
-              {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
-            {{--</form>--}}
-          </td>
-        </tr>
+                        {{ method_field('DELETE') }}
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                      </form>
+                    @endif
+                  </div>
+                </div>
+                <hr>
+              @endforeach
+            </div>
+          </div>
+        </div>
       @endforeach
-
-      </tbody>
-    </table>
-    <div class="pagination col-md-12">
-      {{ $classes->links() }}
     </div>
   </div>
 
