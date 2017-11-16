@@ -11,14 +11,17 @@ use App\Http\Controllers\Controller;
 class ClassRegisterController extends Controller
 {
     public function getClassList(){
-        $subjects = Subject::with('schoolClasses')->orderBy('name')->get()->all();
+        $subjects = Subject::with(['schoolClasses' => function ($query){
+            $query->whereNotNull('teacher_id');
+        }])->orderBy('name')->get()->all();
 
         return view('student.list-classes', ['subjects' => $subjects]);
     }
 
     public function search(){
         $subjects = Subject::with(['schoolClasses' => function ($query) {
-            $query->where('semester', 'like', request()->semester.'%');
+            $query->where('semester', 'like', request()->semester.'%')
+                ->whereNotNull('teacher_id');
         }])->where('name', 'like', '%'.request()->name.'%')
             ->orderBy('name')->get()->all();
 
