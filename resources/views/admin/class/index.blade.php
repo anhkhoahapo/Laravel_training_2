@@ -65,8 +65,13 @@
           <td>{{ $count++ }}</td>
           <td>{{ $class->subject_id }}</td>
           <td>{{ $class->subject->name }}</td>
-          <td>{{ $class->teacher_id }}</td>
-          <td>{{ $class->teacher->name }}</td>
+          @if($class->teacher_id)
+            <td>{{ $class->teacher_id }}</td>
+            <td>{{ $class->teacher->name }}</td>
+          @else
+            <td>{{ 'NULL' }}</td>
+            <td>{{ 'NULL' }}</td>
+          @endif
           <td>{{ $class->semester }}</td>
           <td>{{ $class->created_at }}</td>
           <td>{{ $class->updated_at }}</td>

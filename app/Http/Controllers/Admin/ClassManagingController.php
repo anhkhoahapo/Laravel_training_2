@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\ClassRequest;
 use App\Models\SchoolClass;
+use App\Models\Subject;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -29,18 +32,24 @@ class ClassManagingController extends Controller
      */
     public function create()
     {
-        //
+        $subjects = Subject::all();
+        $teachers = Teacher::all();
+
+        return view('admin.class.create', ['teachers' => $teachers, 'subjects' => $subjects]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param ClassRequest|Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClassRequest $request)
     {
-        //
+        $class = SchoolClass::create($request->all());
+
+        return redirect()->route('admin.class.show', ['class' => $class])
+            ->with('success', 'Class created successfully');
     }
 
     /**
@@ -51,7 +60,8 @@ class ClassManagingController extends Controller
      */
     public function show($id)
     {
-        //
+        $class = SchoolClass::findOrFail($id);
+        return view('admin.class.show', ['class' => $class]);
     }
 
     /**
@@ -62,19 +72,27 @@ class ClassManagingController extends Controller
      */
     public function edit($id)
     {
-        //
+        $subjects = Subject::all();
+        $teachers = Teacher::all();
+        $class = SchoolClass::findOrFail($id);
+        return view('admin.class.edit', ['class' => $class, 'teachers' => $teachers, 'subjects' => $subjects]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param ClassRequest|Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ClassRequest $request, $id)
     {
-        //
+        $class = SchoolClass::findOrFail($id);
+
+        $class->update($request->all());
+
+        return redirect()->route('admin.class.show', ['class' => $id])
+            ->with('success', 'Class updated successfully');
     }
 
     /**
@@ -85,6 +103,9 @@ class ClassManagingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        SchoolClass::findOrFail($id)->delete();
+
+        return redirect()->route('admin.class.index')
+            ->with('success','Class deleted successfully');
     }
 }

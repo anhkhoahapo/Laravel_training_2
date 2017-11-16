@@ -21,10 +21,15 @@
         </div>
       @endif
       <div class="col-md-6 col-md-offset-3 bg-info">
-          <h1>Subject {{ $subject->id }} info</h1>
-          <p><strong>Name: </strong>{{ $subject->name }}</p>
-          <p><strong>Credits: </strong>{{ $subject->credit }}</p>
-          <a class="btn btn-primary" href="{{ route('admin.subject.edit', ['subject' => $subject->id]) }}">Edit</a>
+          <h1>Class {{ $class->id }} info</h1>
+        @if($class->teacher)
+          <p><strong>Teacher: </strong>{{ $class->teacher->name }} - <strong>ID: </strong>{{ $class->teacher->id }}</p>
+        @else
+          <p><strong>Teacher: </strong>Not choose yet</p>
+        @endif
+          <p><strong>Subject: </strong>{{ $class->subject->name }} - <strong>ID: </strong>{{ $class->subject->id }}</p>
+          <p><strong>Semester: </strong>{{ $class->semester }}</p>
+          <a class="btn btn-primary" href="{{ route('admin.class.edit', ['class' => $class->id]) }}">Edit</a>
       </div>
     </div>
   </div>
