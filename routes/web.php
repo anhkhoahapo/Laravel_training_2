@@ -32,6 +32,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function (){
 
         Route::resource('subject', 'SubjectManagingController', ['as' => 'admin']);
         Route::get('subject.search', 'SubjectManagingController@search')->name('admin.subject.search');
+
+        Route::resource('class', 'ClassManagingController', ['as' => 'admin']);
+        Route::get('class.search', 'ClassManagingController@search')->name('admin.class.search');
     });
 });
 
@@ -46,7 +49,7 @@ Route::group(['namespace' => 'Student', 'prefix' => 'student'], function (){
         Route::get('home', 'HomeController@index')->name('student.home');
         Route::get('registered-classes', 'HomeController@registeredClasses')->name(('student.registered-classes'));
         Route::get('classes', 'ClassRegisterController@getClassList')->name(('student.classes'));
-        Route::get('search', 'ClassRegisterController@searchByClassName')->name(('student.classes.search'));
+        Route::get('search', 'ClassRegisterController@search')->name(('student.classes.search'));
         Route::post('register', 'ClassRegisterController@register')->name('student.class-register');
         Route::delete('unregister', 'ClassRegisterController@unregister')->name('student.class-unregister');
     });

@@ -28,7 +28,7 @@ class LoginController extends Controller
         // Validate the form data
         $this->validate($request, [
             'username' => 'required|string',
-            'password' => 'required|max:255'
+            'password' => 'required|max:30'
         ]);
 
         if ($this->hasTooManyLoginAttempts($request)) {

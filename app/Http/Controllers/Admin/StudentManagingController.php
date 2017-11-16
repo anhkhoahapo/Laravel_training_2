@@ -71,7 +71,9 @@ class StudentManagingController extends Controller
      */
     public function show($id)
     {
-        $student = Student::findOrFail($id);
+        $student = Student::with(['schoolClasses' => function($query){
+            $query->orderBy('semester', 'asc');
+        }])->findOrFail($id);
 
         return view('admin.student.show', ['student' => $student]);
     }

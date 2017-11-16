@@ -40,6 +40,7 @@
                             <li><a href="{{ route('admin.student.index') }}">Student Manager</a></li>
                             <li><a href="{{ route('admin.teacher.index') }}">Teacher Manager</a></li>
                             <li><a href="{{ route('admin.subject.index') }}">Subject Manager</a></li>
+                            <li><a href="{{ route('admin.class.index') }}">Class Manager</a></li>
                         </ul>
 
                     @endif
@@ -77,7 +78,7 @@
                                     </li>
                                 </ul>
                             </li>
-                        @endguest
+                        @endif
                     </ul>
                 </div>
             </div>
