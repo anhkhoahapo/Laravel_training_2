@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Teacher;
 
+use App\Http\Requests\UpdateStudentScore;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,7 +16,7 @@ class ClassStudentsController extends Controller
         return view('teacher.class-students', ['class' => $class]);
     }
 
-    public function updateStudentScore(Request $request, $class_id){
+    public function updateStudentScore(UpdateStudentScore $request, $class_id){
         $teacher = auth()->guard('teacher')->user();
 
         $class = $teacher->schoolClasses()->findOrFail($class_id);

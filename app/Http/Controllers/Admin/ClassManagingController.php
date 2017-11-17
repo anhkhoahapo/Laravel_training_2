@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\ClassRequest;
+use App\Http\Requests\UpdateStudentScore;
 use App\Models\SchoolClass;
 use App\Models\Subject;
 use App\Models\Teacher;
@@ -113,7 +114,7 @@ class ClassManagingController extends Controller
             ->with('success','Class deleted successfully');
     }
 
-    public function updateStudentScore(Request $request, $class_id){
+    public function updateStudentScore(UpdateStudentScore $request, $class_id){
         $class = SchoolClass::with('students')->findOrFail($class_id);
 
         foreach($request->get('score') as $student => $score){
