@@ -12,7 +12,7 @@ class ClassRegisterController extends Controller
 {
     public function getClassList(){
         $subjects = Subject::with(['schoolClasses' => function ($query){
-            $teacher = \Auth::guard('teacher')->user();
+            $teacher = auth()->guard('teacher')->user();
             $query->whereNull('teacher_id')->orWhere('teacher_id', '=', $teacher->id);
         }])->orderBy('name')->get()->all();
 
@@ -31,20 +31,26 @@ class ClassRegisterController extends Controller
 
     public function register(ClassRegisterRequest $request){
         $class = SchoolClass::findOrFail($request->class_id);
+        $teacher = auth()->guard('teacher')->user();
 
-        $teacher = \Auth::guard('teacher')->user();
-
-        $class->update([ 'teacher_id' => $teacher->id ]);
+        if($class->teacher_id === Null) {
+            $class->update(['teacher_id' => $teacher->id]);
+        }
+        else {
+            return redirect()->setStatusCode(403)->withErrors('Access forbidden');
+        }
 
         return redirect()->route('teacher.classes')->with('success', 'Register successfully');
     }
 
     public function unregister(ClassRegisterRequest $request){
-        $class = SchoolClass::findOrFail($request->class_id);
+        $teacher = auth()->guard('teacher')->user();
 
-        $teacher = \Auth::guard('teacher')->user();
+        $class = $teacher->schoolClasses()->findOrFail($request->class_id);
 
         $class->update([ 'teacher_id' => Null ]);
+
+        $class->students()->detach();
 
         return redirect()->route('teacher.classes')->with('success', 'Unregister successfully');
     }
