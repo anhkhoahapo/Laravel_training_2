@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -18,7 +17,7 @@ class HomeController extends Controller
     }
 
     public function registeredClasses(){
-        $teacher = \Auth::guard('teacher')->user();
+        $teacher = auth()->guard('teacher')->user();
         $classes = $teacher->schoolClasses()->paginate(10);
         return view('teacher.registered-classes', ['classes' => $classes]);
     }

@@ -42,7 +42,7 @@
                         <ul class="nav navbar-nav navbar-left">
                             <li><a href="{{ route('teacher.home') }}">Home</a></li>
                             <li><a href="{{ route('teacher.classes') }}">Class register</a></li>
-                            <li><a href="{{ route('teacher.registered-classes') }}">Teaching classes</a></li>
+                            <li><a href="{{ route('teacher.registered_classes') }}">Teaching classes</a></li>
                         </ul>
                     @endif
 
@@ -51,7 +51,7 @@
                         <!-- Authentication Links -->
 
                         @if(!Auth::guard('teacher')->check())
-                            <li><a href="{{ route('teacher.get-login') }}">Login</a></li>
+                            <li><a href="{{ route('teacher.get_login') }}">Login</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">

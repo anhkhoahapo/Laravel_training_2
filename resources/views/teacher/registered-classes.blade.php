@@ -35,6 +35,7 @@
         <th>Class ID</th>
         <th>Subject</th>
         <th>Semester</th>
+        <th>Students</th>
         <th></th>
       </tr>
       </thead>
@@ -50,12 +51,13 @@
           <td>{{ $class->id }}</td>
           <td>{{ $class->subject->name }}</td>
           <td>{{ $class->semester }}</td>
+          <td>{{ $class->students()->count() }}</td>
           <td>
-            <a class="btn btn-primary" href="{{ route('teacher.class-students', ['class' => $class->id]) }}">List Student</a>
+            <a class="btn btn-primary" href="{{ route('teacher.class_students', ['class' => $class->id]) }}">List Student</a>
             <form
                 class="form-inline"
                 method="POST"
-                action="{{ route('teacher.class-unregister') }}"
+                action="{{ route('teacher.class_unregister') }}"
             >
               <input type="hidden" name="class_id" value="{{ $class->id }}">
               <button type="submit" class="btn btn-danger">Unregister</button>

@@ -7,7 +7,7 @@
         <div class="panel panel-default">
           <div class="panel-heading">STUDENT Login</div>
           <div class="panel-body">
-            <form class="form-horizontal" role="form" method="POST" action="{{ route('student.post-login') }}">
+            <form class="form-horizontal" role="form" method="POST" action="{{ route('student.post_login') }}">
               {{ csrf_field() }}
 
               <div class="form-group{{ $errors->has('student_id') ? ' has-error' : '' }}">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Teacher\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -30,7 +31,7 @@ class LoginController extends Controller
 
     public function guard()
     {
-        return \Auth::guard('teacher');
+        return Auth::guard('teacher');
     }
 
     public function showLoginForm()
@@ -53,7 +54,7 @@ class LoginController extends Controller
         }
 
         // Attempt to log the user in
-        if (\Auth::guard('teacher')
+        if (Auth::guard('teacher')
             ->attempt(['teacher_id' => $request->teacher_id, 'password' => $request->password], $request->remember)) {
             // if successful, then redirect to their intended location
             return redirect()->intended(route('teacher.home'));

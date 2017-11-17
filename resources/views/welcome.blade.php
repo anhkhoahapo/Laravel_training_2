@@ -75,9 +75,9 @@
                 <h1 class="m-b-md">LOGIN AS</h1>
                 <div class="flex-center">
                     <div class="links">
-                        <a href="{{ route('student.get-login') }}">STUDENT</a>
-                        <a href="{{ route('teacher.get-login') }}">TEACHER</a>
-                        <a href="{{ route('admin.get-login') }}">ADMIN</a>
+                        <a href="{{ route('student.get_login') }}">STUDENT</a>
+                        <a href="{{ route('teacher.get_login') }}">TEACHER</a>
+                        <a href="{{ route('admin.get_login') }}">ADMIN</a>
                     </div>
                 </div>
             </div>

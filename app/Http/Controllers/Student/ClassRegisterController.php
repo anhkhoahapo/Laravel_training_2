@@ -28,7 +28,7 @@ class ClassRegisterController extends Controller
     }
 
     public function register(ClassRegisterRequest $request){
-        $student = \Auth::guard('student')->user();
+        $student = auth()->guard('student')->user();
         try {
             $student->schoolClasses()->attach(request()->class_id);
         }
@@ -43,7 +43,7 @@ class ClassRegisterController extends Controller
     }
 
     public function unregister(ClassRegisterRequest $request){
-        $student = \Auth::guard('student')->user();
+        $student = auth()->guard('student')->user();
 
         $student->schoolClasses()->detach(request()->class_id);
 

@@ -32,8 +32,8 @@ class ClassManagingController extends Controller
      */
     public function create()
     {
-        $subjects = Subject::all();
-        $teachers = Teacher::all();
+        $subjects = Subject::select('id', 'name')->get()->all();
+        $teachers = Teacher::select('id', 'teacher_id', 'name')->get()->all();
 
         return view('admin.class.create', ['teachers' => $teachers, 'subjects' => $subjects]);
     }
@@ -72,8 +72,8 @@ class ClassManagingController extends Controller
      */
     public function edit($id)
     {
-        $subjects = Subject::all();
-        $teachers = Teacher::all();
+        $subjects = Subject::select('id', 'name')->get()->all();
+        $teachers = Teacher::select('id', 'teacher_id', 'name')->get()->all();
         $class = SchoolClass::findOrFail($id);
         return view('admin.class.edit', ['class' => $class, 'teachers' => $teachers, 'subjects' => $subjects]);
     }
@@ -91,6 +91,10 @@ class ClassManagingController extends Controller
 
         $class->update($request->all());
 
+        if($class->teacher_id === Null){
+            $class->students()->detach();
+        }
+
         return redirect()->route('admin.class.show', ['class' => $id])
             ->with('success', 'Class updated successfully');
     }
@@ -107,5 +111,15 @@ class ClassManagingController extends Controller
 
         return redirect()->route('admin.class.index')
             ->with('success','Class deleted successfully');
+    }
+
+    public function updateStudentScore(Request $request, $class_id){
+        $class = SchoolClass::with('students')->findOrFail($class_id);
+
+        foreach($request->get('score') as $student => $score){
+            $class->students()->updateExistingPivot($student, ['score' => $score]);
+        }
+        return redirect()->route('admin.class.show', ['class' => $class_id])
+            ->with('success', 'Update score successfully');
     }
 }

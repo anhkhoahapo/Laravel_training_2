@@ -20,17 +20,55 @@
           <p>{{ Session::get('success') }}</p>
         </div>
       @endif
-      <div class="col-md-6 col-md-offset-3 bg-info">
-          <h1>Class {{ $class->id }} info</h1>
-        @if($class->teacher)
-          <p><strong>Teacher: </strong>{{ $class->teacher->name }} - <strong>ID: </strong>{{ $class->teacher->id }}</p>
-        @else
-          <p><strong>Teacher: </strong>Not choose yet</p>
-        @endif
-          <p><strong>Subject: </strong>{{ $class->subject->name }} - <strong>ID: </strong>{{ $class->subject->id }}</p>
+      <div class="info-panel col-md-12 bg-info">
+        <h1>Class {{ $class->id }}</h1>
+        <div class="col-md-12">
+          <p><strong>Subject Name: </strong>{{ $class->subject->name }}</p>
           <p><strong>Semester: </strong>{{ $class->semester }}</p>
-          <a class="btn btn-primary" href="{{ route('admin.class.edit', ['class' => $class->id]) }}">Edit</a>
+        </div>
       </div>
+    </div>
+
+    <div class="row">
+      <h2>Class Students</h2>
+      <form action="{{ route('admin.class.student_score', ['class' => $class->id]) }}" method="POST" class="text-center">
+        <table class="table text-left">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Student ID</th>
+            <th>Student Name</th>
+            <th class="text-center">Score</th>
+            <th>Registerd at</th>
+            <th>Updated at</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          @php
+            $count = 1;
+          @endphp
+
+          @foreach($class->students as $student)
+            <tr>
+              <td>{{ $count++ }}</td>
+              <td>{{ $student->id }}</td>
+              <td>{{ $student->name }}</td>
+              <td class="text-center">
+                <label class="sr-only" for="scoreTxt">Student Score</label>
+                <input id="scoreTxt" type="text" name="score[{{ $student->id }}]" value="{{ $student->pivot->score }}">
+              </td>
+              <td>{{ $student->pivot->created_at }}</td>
+              <td>{{ $student->pivot->updated_at }}</td>
+            </tr>
+          @endforeach
+          </tbody>
+        </table>
+
+        <button class="btn btn-primary" type="submit">Update Student Score</button>
+
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+      </form>
     </div>
   </div>
 @endsection

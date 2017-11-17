@@ -46,7 +46,7 @@
     </div>
     @php
       $count = 1;
-      $registedClasses = \Auth::guard('teacher')->user()->schoolClasses()->get()->pluck('id');
+      $registedClasses = auth()->guard('teacher')->user()->schoolClasses()->select('id')->get();
     @endphp
 
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -80,7 +80,7 @@
                       <form
                           class="form-inline"
                           method="POST"
-                          action="{{ route('teacher.class-register') }}"
+                          action="{{ route('teacher.class_register') }}"
                       >
                         <input type="hidden" name="class_id" value="{{ $class->id }}">
                         <button type="submit" class="btn btn-primary">Register</button>
@@ -91,7 +91,7 @@
                       <form
                           class="form-inline"
                           method="POST"
-                          action="{{ route('teacher.class-unregister') }}"
+                          action="{{ route('teacher.class_unregister') }}"
                       >
                         <input type="hidden" name="class_id" value="{{ $class->id }}">
                         <button type="submit" class="btn btn-danger">Unregister</button>

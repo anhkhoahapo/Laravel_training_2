@@ -35,7 +35,7 @@
 
     <div class="row">
       <h2>Class Students</h2>
-      <form action="{{ route('teacher.student-score', ['class' => $class->id]) }}" method="POST" class="text-center">
+      <form action="{{ route('teacher.student_score', ['class' => $class->id]) }}" method="POST" class="text-center">
         <table class="table text-left">
         <thead>
         <tr>
