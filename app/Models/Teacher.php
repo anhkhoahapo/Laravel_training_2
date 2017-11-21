@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Notifications\TeacherResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * @property \Carbon\Carbon $created_at
@@ -11,6 +13,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class Teacher extends Authenticatable
 {
+    use Notifiable;
+
     protected $guard = 'teacher';
 
     protected $fillable = ['teacher_id', 'password', 'name', 'birthday', 'avatar', 'email',];
@@ -21,5 +25,10 @@ class Teacher extends Authenticatable
 
     public function schoolClasses(){
         return $this->hasMany(SchoolClass::class);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new TeacherResetPasswordNotification($token));
     }
 }

@@ -55,9 +55,9 @@
                     Login
                   </button>
 
-                  {{--<a class="btn btn-link" href="{{ route('teacher.password.request') }}">--}}
-                    {{--Forgot Your Password?--}}
-                  {{--</a>--}}
+                  <a class="btn btn-link" href="{{ route('teacher.password.reset') }}">
+                    Forgot Your Password?
+                  </a>
                 </div>
               </div>
             </form>

@@ -60,6 +60,9 @@
 
                                 <ul class="dropdown-menu">
                                     <li>
+                                        <a href="{{ route('teacher.changePassword') }}">Change password</a>
+                                    </li>
+                                    <li>
                                         <a href="{{ route('teacher.logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
