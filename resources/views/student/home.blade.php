@@ -8,7 +8,7 @@
           <div class="panel-heading"><h2>My profile</h2></div>
 
           @php
-            $user = \Auth::guard('student')->user();
+            $user = auth()->guard('student')->user();
           @endphp
           <div class="panel-body">
             <div class="row">

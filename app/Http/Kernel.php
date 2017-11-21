@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\AuthenticateAdmin;
 use App\Http\Middleware\AuthenticateStudent;
+use App\Http\Middleware\AuthenticateTeacher;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -60,6 +61,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'auth_admin' => AuthenticateAdmin::class,
-        'auth_student' => AuthenticateStudent::class
+        'auth_student' => AuthenticateStudent::class,
+        'auth_teacher' => AuthenticateTeacher::class
     ];
 }

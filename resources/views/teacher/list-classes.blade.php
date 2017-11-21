@@ -1,4 +1,4 @@
-@extends('student.layouts.app')
+@extends('teacher.layouts.app')
 
 @section('styles')
   <style>
@@ -37,7 +37,7 @@
         <h2>Class list</h2>
       </div>
       <div class="actions-head col-md-6">
-        <form class="search-form form form-inline" method="GET" action="{{ route('student.classes.search') }}">
+        <form class="search-form form form-inline" method="GET" action="{{ route('teacher.classes.search') }}">
           <input class="form-control" type="text" placeholder="Semester" name="semester" >
           <input class="form-control" type="text" placeholder="Subject name" name="name">
           <button class="btn btn-success" type="submit">Search</button>
@@ -46,7 +46,7 @@
     </div>
     @php
       $count = 1;
-      $registedClasses = auth()->guard('student')->user()->schoolClasses()->select('id')->get();
+      $registedClasses = auth()->guard('teacher')->user()->schoolClasses()->select('id')->get();
     @endphp
 
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -80,7 +80,7 @@
                       <form
                           class="form-inline"
                           method="POST"
-                          action="{{ route('student.class_register') }}"
+                          action="{{ route('teacher.class_register') }}"
                       >
                         <input type="hidden" name="class_id" value="{{ $class->id }}">
                         <button type="submit" class="btn btn-primary">Register</button>
@@ -91,7 +91,7 @@
                       <form
                           class="form-inline"
                           method="POST"
-                          action="{{ route('student.class_unregister') }}"
+                          action="{{ route('teacher.class_unregister') }}"
                       >
                         <input type="hidden" name="class_id" value="{{ $class->id }}">
                         <button type="submit" class="btn btn-danger">Unregister</button>

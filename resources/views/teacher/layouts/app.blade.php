@@ -38,11 +38,11 @@
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
-                    @if(Auth::guard('student')->check())
-                        <ul class="nav navbar-nav">
-                            <li><a href="{{ route('student.home') }}">Home</a></li>
-                            <li><a href="{{ route('student.classes') }}">List classes</a></li>
-                            <li><a href="{{ route('student.registered_classes') }}">Registered classes</a></li>
+                    @if(Auth::guard('teacher')->check())
+                        <ul class="nav navbar-nav navbar-left">
+                            <li><a href="{{ route('teacher.home') }}">Home</a></li>
+                            <li><a href="{{ route('teacher.classes') }}">Class register</a></li>
+                            <li><a href="{{ route('teacher.registered_classes') }}">Teaching classes</a></li>
                         </ul>
                     @endif
 
@@ -50,23 +50,23 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
 
-                        @if(!Auth::guard('student')->check())
-                            <li><a href="{{ route('student.get_login') }}">Login</a></li>
+                        @if(!Auth::guard('teacher')->check())
+                            <li><a href="{{ route('teacher.get_login') }}">Login</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    {{ Auth::guard('student')->user()->name }} <span class="caret"></span>
+                                    {{ Auth::guard('teacher')->user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="{{ route('student.logout') }}"
+                                        <a href="{{ route('teacher.logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                             Logout
                                         </a>
 
-                                        <form id="logout-form" action="{{ route('student.logout') }}" method="POST" style="display: none;">
+                                        <form id="logout-form" action="{{ route('teacher.logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
                                     </li>

@@ -70,25 +70,14 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            {{--@if (Route::has('login'))--}}
-                {{--<div class="top-right links">--}}
-                    {{--@auth--}}
-                        {{--<a href="{{ url('/home') }}">Home</a>--}}
-                    {{--@else--}}
-                        {{--<a href="{{ route('login') }}">Login</a>--}}
-                        {{--<a href="{{ route('register') }}">Register</a>--}}
-                    {{--@endauth--}}
-                {{--</div>--}}
-            {{--@endif--}}
-
             <div class="content">
                 <h3 class="m-b-lg">Please login to continue</h3>
                 <h1 class="m-b-md">LOGIN AS</h1>
                 <div class="flex-center">
                     <div class="links">
-                        <a href="{{ route('student.get-login') }}">STUDENT</a>
-                        <a href="">TEACHER</a>
-                        <a href="{{ route('admin.get-login') }}">ADMIN</a>
+                        <a href="{{ route('student.get_login') }}">STUDENT</a>
+                        <a href="{{ route('teacher.get_login') }}">TEACHER</a>
+                        <a href="{{ route('admin.get_login') }}">ADMIN</a>
                     </div>
                 </div>
             </div>

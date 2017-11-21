@@ -7,11 +7,11 @@
         <div class="panel panel-default">
           <div class="panel-heading">STUDENT Login</div>
           <div class="panel-body">
-            <form class="form-horizontal" role="form" method="POST" action="{{ route('student.post-login') }}">
+            <form class="form-horizontal" role="form" method="POST" action="{{ route('student.post_login') }}">
               {{ csrf_field() }}
 
               <div class="form-group{{ $errors->has('student_id') ? ' has-error' : '' }}">
-                <label for="student_id" class="col-md-4 control-label">MSSV</label>
+                <label for="student_id" class="col-md-4 control-label">Teacher ID</label>
 
                 <div class="col-md-6">
                   <input id="student_id" type="text" class="form-control" name="student_id" value="{{ old('student_id') }}"

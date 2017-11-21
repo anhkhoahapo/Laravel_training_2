@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Student;
+namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
 
@@ -13,12 +13,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('student.home');
+        return view('teacher.home');
     }
 
     public function registeredClasses(){
-        $student = auth()->guard('student')->user();
-        $classes = $student->schoolClasses()->paginate(10);
-        return view('student.registered-classes', ['classes' => $classes]);
+        $teacher = auth()->guard('teacher')->user();
+        $classes = $teacher->schoolClasses()->paginate(10);
+        return view('teacher.registered-classes', ['classes' => $classes]);
     }
 }

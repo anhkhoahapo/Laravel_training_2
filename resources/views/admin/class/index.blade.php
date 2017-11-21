@@ -49,6 +49,7 @@
         <th>Teacher ID</th>
         <th>Teacher Name</th>
         <th>Semester</th>
+        <th>Students</th>
         <th>Created at</th>
         <th>Updated at</th>
         <th></th>
@@ -73,6 +74,7 @@
             <td>{{ 'NULL' }}</td>
           @endif
           <td>{{ $class->semester }}</td>
+          <td>{{ $class->students()->count() }}</td>
           <td>{{ $class->created_at }}</td>
           <td>{{ $class->updated_at }}</td>
           <td>
