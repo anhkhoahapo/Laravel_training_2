@@ -60,10 +60,18 @@ Route::group(['namespace' => 'Teacher', 'prefix' => 'teacher'], function (){
     Route::group(['middleware' => 'guest:teacher'], function (){
         Route::get('login', 'Auth\LoginController@showLoginForm')->name('teacher.get_login');
         Route::post('login', 'Auth\LoginController@login')->name('teacher.post_login');
+        Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('teacher.password.reset');
+        Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('teacher.password.email');
+        Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
+        Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('teacher.password.reset');
     });
 
     Route::group(['middleware' => 'auth_teacher'], function (){
         Route::post('logout', 'Auth\LoginController@logout')->name('teacher.logout');
+
+        Route::get('changePassword', 'HomeController@showChangePasswordForm')->name('teacher.changePassword');
+        Route::put('changePassword', 'HomeController@changePassword')->name('teacher.changePassword');
+
         Route::get('home', 'HomeController@index')->name('teacher.home');
         Route::get('registered-classes', 'HomeController@registeredClasses')->name('teacher.registered_classes');
         Route::get('classes', 'ClassRegisterController@getClassList')->name('teacher.classes');
